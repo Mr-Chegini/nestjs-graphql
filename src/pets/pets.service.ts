@@ -1,9 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePetInput } from './dto/create-pet.input';
 import { UpdatePetInput } from './dto/update-pet.input';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Pet } from './entities/pet.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PetsService {
+  constructor(@InjectRepository(Pet) private petsRepository: Repository<Pet>) {}
   create(createPetInput: CreatePetInput) {
     return 'This action adds a new pet';
   }
