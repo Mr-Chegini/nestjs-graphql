@@ -1,0 +1,31 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Pet {
+  id: Int!
+  name: String!
+  type: String
+}
+
+type Query {
+  pets: [Pet!]!
+  pet(id: Int!): Pet!
+}
+
+type Mutation {
+  createPet(createPetInput: CreatePetInput!): Pet!
+  updatePet(updatePetInput: UpdatePetInput!): Pet!
+  removePet(id: Int!): Pet!
+}
+
+input CreatePetInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdatePetInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
