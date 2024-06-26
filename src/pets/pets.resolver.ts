@@ -9,7 +9,9 @@ export class PetsResolver {
   constructor(private readonly petsService: PetsService) {}
 
   @Mutation(() => Pet)
-  createPet(@Args('createPetInput') createPetInput: CreatePetInput) {
+  createPet(
+    @Args('createPetInput') createPetInput: CreatePetInput,
+  ): Promise<Pet> {
     return this.petsService.create(createPetInput);
   }
 
@@ -19,7 +21,7 @@ export class PetsResolver {
   }
 
   @Query(() => Pet, { name: 'pet' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
+  findOne(@Args('id', { type: () => Int }) id: number): Promise<Pet> {
     return this.petsService.findOne(id);
   }
 

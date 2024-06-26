@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreatePetInput } from './dto/create-pet.input';
 import { UpdatePetInput } from './dto/update-pet.input';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -8,16 +8,18 @@ import { Repository } from 'typeorm';
 @Injectable()
 export class PetsService {
   constructor(@InjectRepository(Pet) private petsRepository: Repository<Pet>) {}
-  create(createPetInput: CreatePetInput) {
-    return 'This action adds a new pet';
+  create(createPetInput: CreatePetInput): Promise<Pet> {
+    return this.petsRepository.save(createPetInput);
   }
 
-  findAll() {
-    return `This action returns all pets`;
+  findAll(): Promise<Pet[]> {
+    return this.petsRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} pet`;
+  async findOne(id: number): Promise<Pet> {
+    const pet = await this.petsRepository.findOne({ where: { id } });
+    if (!pet) throw new NotFoundException();
+    return pet;
   }
 
   update(id: number, updatePetInput: UpdatePetInput) {

@@ -20,12 +20,12 @@ type Mutation {
 }
 
 input CreatePetInput {
-  """Example field (placeholder)"""
-  exampleField: Int!
+  name: String!
+  type: String
 }
 
 input UpdatePetInput {
-  """Example field (placeholder)"""
-  exampleField: Int
+  name: String
+  type: String
   id: Int!
 }
